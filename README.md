@@ -1,8 +1,8 @@
 # CreepyRabbit-USER-microservice
-User microservice
+
 
 USERS /user
-
+----------------------------
 POST 											/user  
 POST                      /authenticate  
 PUT  											/user  
