@@ -63,7 +63,9 @@ public class UserApiController implements UserApi {
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
         final String token = jwtProvider.generateJwtToken(userDetails);
-        System.out.println("authenticate for user: " + authenticationRequest.getUsername());
+        System.out.println("Authentication request for user: " + authenticationRequest.getUsername());
+        //TODO return username with the token???
+        //userService.
         return ResponseEntity.ok(new JwtResponse(token));
     }
 

@@ -5,12 +5,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.util.Date;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 @Document(collection = "User")
 public class User {
@@ -36,13 +32,21 @@ public class User {
     @ApiModelProperty(position = 4)
     private String email;
 
-    @NotNull(message = "Disabled is mandatory")
-    @ApiModelProperty(position = 5, example = "false", value = "Indicates if this master data has been disabled.")
-    private Boolean disabled=false;
+    @ApiModelProperty(position = 5)
+    private List<Category> preferredCategories;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @ApiModelProperty(position = 5)
+    private List<Playlist>  playlists;
+
+
+
+    /* @NotNull(message = "Disabled is mandatory")
+    @ApiModelProperty(position = 5, example = "false", value = "Indicates if this master data has been disabled.")
+    private Boolean disabled=false; */
+
+   /* @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @ApiModelProperty(position = 6, example = "2021-02-25T15:46:13.824+00:00", value = "Field provided by server.")
-    private Date modified;
+    private Date modified; */
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @ApiModelProperty(position = 7, example = "2021-02-25T15:46:13.824+00:00", value = "Field provided by server.")
@@ -103,22 +107,6 @@ public class User {
         this.email = email;
     }
 
-    public Boolean getDisabled() {
-        return disabled;
-    }
-
-    public void setDisabled(Boolean disabled) {
-        this.disabled = disabled;
-    }
-
-    public Date getModified() {
-        return modified;
-    }
-
-    public void setModified(Date modified) {
-        this.modified = modified;
-    }
-
     public Date getCreated() {
         return created;
     }
@@ -147,16 +135,12 @@ public class User {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("User{");
-        sb.append("id=").append(id);
-        sb.append(", name='").append(name).append('\'');
-        sb.append(", username='").append(username).append('\'');
-        sb.append(", password='").append(password).append('\'');
-        sb.append(", email='").append(email).append('\'');
-        sb.append(", disabled=").append(disabled);
-        sb.append(", modified=").append(modified);
-        sb.append(", created=").append(created);
-        sb.append('}');
-        return sb.toString();
+        return "User{" + "id=" + id +
+                ", name='" + name + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", created=" + created +
+                '}';
     }
 }

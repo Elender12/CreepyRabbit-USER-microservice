@@ -43,9 +43,9 @@ public class UserApiServiceImpl implements UserApiService {
             String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
             user.setPassword(encodedPassword);
         } else if (user.getId() == null && searchedUser != null) {
-            throw new UserException(HttpStatus.BAD_REQUEST, "Username not available", "username");
+            throw new UserException(HttpStatus.BAD_REQUEST, "Username not available");
         } else {
-            user.setModified(new Date());
+
             User temp = this.findById(user.getId());
             user.setCreated(temp.getCreated());
         }
@@ -56,7 +56,6 @@ public class UserApiServiceImpl implements UserApiService {
     @Override
     public User edit(User user) {
         User temp = this.findById(user.getId()); //throws exception if it doesn't exist.
-        user.setModified(new Date());
         user.setCreated(temp.getCreated());
         System.out.println("Edited user with id: " + user.getId());
         return this.userRepository.save(user);
@@ -71,7 +70,7 @@ public class UserApiServiceImpl implements UserApiService {
             return user;
         } else {
             System.err.println("User not found with id " + id);
-            throw new UserException(HttpStatus.NOT_FOUND, "user not found with id " + id, "id");
+            throw new UserException(HttpStatus.NOT_FOUND, "user not found with id " + id);
         }
     }
 
@@ -84,7 +83,19 @@ public class UserApiServiceImpl implements UserApiService {
             return user;
         } else {
             System.err.println("User not found with id " + id);
-            throw new UserException(HttpStatus.NOT_FOUND, "user not found with id " + id, "id");
+            throw new UserException(HttpStatus.NOT_FOUND, "user not found with id "+id);
+        }
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        User user = this.userRepository.findByUsername(username);
+        if (user != null) {
+            System.out.println("Found user with username: " + user.getUsername());
+            return user;
+        } else {
+            System.err.println("User not found with username " + username);
+            throw new UserException(HttpStatus.NOT_FOUND, "user not found with username " + username);
         }
     }
 }

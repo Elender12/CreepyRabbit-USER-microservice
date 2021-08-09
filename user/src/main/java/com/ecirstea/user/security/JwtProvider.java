@@ -11,29 +11,27 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @Component
 public
 class JwtProvider {
 
     @Value("${jwt.token.expiration.time}")
-    private String TOKEN_EXPIRATION_TIME;
+    private long TOKEN_EXPIRATION_TIME;
 
     @Value("${jwt.secret}")
     private String secret;
 
 
     public String generateJwtToken(UserDetails user) throws InvalidKeyException {
-        Calendar cal = Calendar.getInstance();
-        cal.set(2021, Calendar.JULY, 9);
-        Date exp = cal.getTime();
         Map<String, Object> map = new HashMap<>();
         map.put("password", user.getPassword());
         return Jwts.builder()
                 .setSubject((user.getUsername()))
                 .addClaims(map)
                 .setIssuedAt(new Date())
-                .setExpiration(exp)
+                .setExpiration(new Date((new Date()).getTime()+ TOKEN_EXPIRATION_TIME))
                 .signWith(Keys.hmacShaKeyFor(secret.getBytes()), SignatureAlgorithm.HS512)
                 .compact();
     }

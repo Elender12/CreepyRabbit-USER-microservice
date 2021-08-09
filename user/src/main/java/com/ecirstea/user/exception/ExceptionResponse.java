@@ -1,31 +1,28 @@
 package com.ecirstea.user.exception;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Date;
 
 public class ExceptionResponse {
-    private Date timestamp;
+    @ApiModelProperty()
+    private long timestamp;
+    @ApiModelProperty(position = 1)
     private int status;
-    private String error;
-    private String field;
-    private String problem;
+    @ApiModelProperty(position = 2)
     private String message;
-    private String path;
 
-    public ExceptionResponse(Date timestamp, int status, String error, String field, String problem, String message, String path) {
+    public ExceptionResponse(long timestamp, int status, String message) {
         this.timestamp = timestamp;
         this.status = status;
-        this.error = error;
-        this.field = field;
-        this.problem = problem;
         this.message = message;
-        this.path = path;
     }
 
-    public Date getTimestamp() {
+    public long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Date timestamp) {
+    public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -37,30 +34,6 @@ public class ExceptionResponse {
         this.status = status;
     }
 
-    public String getError() {
-        return error;
-    }
-
-    public void setError(String error) {
-        this.error = error;
-    }
-
-    public String getField() {
-        return field;
-    }
-
-    public void setField(String field) {
-        this.field = field;
-    }
-
-    public String getProblem() {
-        return problem;
-    }
-
-    public void setProblem(String problem) {
-        this.problem = problem;
-    }
-
     public String getMessage() {
         return message;
     }
@@ -69,24 +42,5 @@ public class ExceptionResponse {
         this.message = message;
     }
 
-    public String getPath() {
-        return path;
-    }
 
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    @Override
-    public String toString() {
-        return "ExceptionResponse{" +
-                "timestamp=" + timestamp +
-                ", status=" + status +
-                ", error='" + error + '\'' +
-                ", field='" + field + '\'' +
-                ", problem='" + problem + '\'' +
-                ", message='" + message + '\'' +
-                ", path='" + path + '\'' +
-                '}';
-    }
 }

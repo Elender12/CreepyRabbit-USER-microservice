@@ -12,7 +12,8 @@ public class Application {
 	public static void main(String[] args) {
 
 		try{
-			localInstance = InetAddress.getLocalHost().getHostName().startsWith("ASUS");
+		//	localInstance = InetAddress.getLocalHost().getHostName().startsWith("ASUS");
+		localInstance= true;
 		}catch( Exception ex ){
 			localInstance = false;
 		}

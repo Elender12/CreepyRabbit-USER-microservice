@@ -59,7 +59,7 @@ public class MongoDBConfiguration extends AbstractMongoClientConfiguration
     @Override
     public Collection getMappingBasePackages()
     {
-        return Collections.singleton("com.galactic.first.registry.config");
+        return Collections.singleton("com.ecirstea.user.config");
     }
 
 }

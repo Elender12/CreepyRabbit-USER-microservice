@@ -3,11 +3,11 @@ package com.ecirstea.user.exception;
 
 import org.springframework.http.HttpStatus;
 
-public class UserException extends RuntimeException {
+public class BadRequestException extends RuntimeException {
     private HttpStatus code;
     private String message;
 
-    public UserException(HttpStatus code, String message) {
+    public BadRequestException(HttpStatus code, String message) {
         this.code = code;
         this.message = message;
     }

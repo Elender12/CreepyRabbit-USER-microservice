@@ -18,4 +18,5 @@ public interface UserApiService {
 
    User delete(UUID id);
 
+   User findByUsername(String username);
 }

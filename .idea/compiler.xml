@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="com.ecirstea.user-microservice" target="11" />
+      <module name="com.ecirstea.user-microservice.main" target="11" />
+      <module name="com.ecirstea.user-microservice.test" target="11" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
