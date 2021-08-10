@@ -68,6 +68,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter implements WebMvcCo
                 // don't authenticate this particular request
                 .authorizeRequests()
                 .antMatchers("/",
+                        "/users",
                         "/healthcheck",
                         "/config",
                         "/swagger-ui.html",
@@ -79,6 +80,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter implements WebMvcCo
                 .permitAll()
                 .antMatchers(HttpMethod.POST, "/users").permitAll()
                 .antMatchers(HttpMethod.POST, "/authenticate").permitAll()
+                .antMatchers("/actuator/**").permitAll()
                 // all other requests need to be authenticated
                 .anyRequest().authenticated().and()
                 // make sure we use stateless session; session won't be used to store user's state.
