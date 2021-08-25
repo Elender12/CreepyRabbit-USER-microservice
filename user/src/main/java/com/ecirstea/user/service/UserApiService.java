@@ -2,6 +2,7 @@ package com.ecirstea.user.service;
 
 
 import com.ecirstea.user.model.User;
+import com.ecirstea.user.model.UserFeedback;
 
 import java.util.List;
 import java.util.UUID;
@@ -19,4 +20,6 @@ public interface UserApiService {
    User delete(UUID id);
 
    User findByUsername(String username);
+
+   String receiveUserFeedback(UserFeedback message);
 }

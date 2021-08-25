@@ -3,9 +3,11 @@ package com.ecirstea.user.controller;
 
 import com.ecirstea.user.exception.ExceptionResponse;
 import com.ecirstea.user.model.User;
+import com.ecirstea.user.model.UserFeedback;
 import com.ecirstea.user.security.JwtRequest;
 import com.ecirstea.user.security.JwtResponse;
 import io.swagger.annotations.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -93,6 +95,21 @@ public interface UserApi {
     );
 
 
+    @ApiOperation(value = "Get a user by username.", nickname = "getUsersByUsername", notes = "Returns one User by username.", response = User.class, tags = {"Users",})
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK.", response = User.class),
+            @ApiResponse(code = 401, message = "Unauthorized.", response = ExceptionResponse.class),
+            @ApiResponse(code = 403, message = "Forbidden.", response = ExceptionResponse.class),
+            @ApiResponse(code = 404, message = "Not found.", response = ExceptionResponse.class),
+            @ApiResponse(code = 500, message = "Server error.", response = ExceptionResponse.class)})
+    @RequestMapping(value = "/users/by/{username}",
+            produces = {"application/json"},
+            method = RequestMethod.GET)
+    ResponseEntity<User> getUserByUsername(@ApiParam(value = "Username to get", required = true) @PathVariable("username") String username
+    );
+
+
+
     @ApiOperation(value = "Update an existing user.", nickname = "updateUsers", notes = "Takes an existing User, updates it, and returns the new object.", response = User.class, tags = {"Users",})
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK.", response = User.class),
@@ -106,6 +123,20 @@ public interface UserApi {
             consumes = {"application/json"},
             method = RequestMethod.PUT)
     ResponseEntity<User> updateUser(@ApiParam(value = "User object to update.", required = true) @Valid @RequestBody User body
+    );
+
+    @ApiOperation(value = "Receive user feedback.", nickname = "receiveFeedback", notes = "Receives a user's feedback", response = UserFeedback.class, tags = {"UsersFeedback",})
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK."),
+            @ApiResponse(code = 400, message = "Invalid User.", response = ExceptionResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized.", response = ExceptionResponse.class),
+            @ApiResponse(code = 403, message = "Forbidden.", response = ExceptionResponse.class),
+            @ApiResponse(code = 404, message = "Not found.", response = ExceptionResponse.class),
+            @ApiResponse(code = 500, message = "Server error.", response = ExceptionResponse.class)})
+    @RequestMapping(value = "/contactus",
+            consumes = {"application/json"},
+            method = RequestMethod.POST)
+    ResponseEntity<String> receiveUserFeedback(@ApiParam(value = "User msj", required = true) @Valid @RequestBody UserFeedback body
     );
 }
 

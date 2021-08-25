@@ -17,7 +17,6 @@ ext {
 	set('springCloudVersion', "2020.0.3")
 }
 
-
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -34,18 +33,11 @@ dependencies {
 	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.10.5'
 	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.10.5'
 	implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
-
-	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:3.0.3'
-
-	runtimeOnly 'com.netflix.eureka:eureka-client:1.10.16'
-
-
 }
 
 dependencyManagement {
 	imports {
 		mavenBom "org.testcontainers:testcontainers-bom:${testcontainersVersion}"
-		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
 	}
 }
 

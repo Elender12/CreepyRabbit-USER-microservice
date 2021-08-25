@@ -22,7 +22,7 @@ class JwtUserDetailService implements UserDetailsService {
             return new org.springframework.security.core.userdetails.User("root", "imgroot", new ArrayList<>());
         }
         if (user != null) {
-            return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), new ArrayList<>());
+            return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), new ArrayList<>());
         } else {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }

@@ -2,6 +2,7 @@ package com.ecirstea.user.controller;
 
 
 import com.ecirstea.user.model.User;
+import com.ecirstea.user.model.UserFeedback;
 import com.ecirstea.user.security.JwtProvider;
 import com.ecirstea.user.security.JwtRequest;
 import com.ecirstea.user.security.JwtResponse;
@@ -46,7 +47,7 @@ public class UserApiController implements UserApi {
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
         final String token = jwtProvider.generateJwtToken(userDetails);
-        return ResponseEntity.ok(new JwtResponse(token));
+        return ResponseEntity.ok(new JwtResponse(token, userDetails.getUsername()));
     }
 
     //@CrossOrigin(origins = "http://localhost:9100")
@@ -69,7 +70,7 @@ public class UserApiController implements UserApi {
         System.out.println("Authentication request for user: " + authenticationRequest.getUsername());
         //TODO return username with the token???
         //userService.
-        return ResponseEntity.ok(new JwtResponse(token));
+        return ResponseEntity.ok(new JwtResponse(token, userDetails.getUsername()));
     }
 
     public ResponseEntity<User> addUser(@ApiParam(value = "User object", required = true)
@@ -96,10 +97,20 @@ public class UserApiController implements UserApi {
         return ResponseEntity.ok().body(userService.findById(id));
     }
 
+    @Override
+    public ResponseEntity<User> getUserByUsername(@ApiParam(value =" Returns a user by username", required = true)
+                                                      @PathVariable("username") String username) {
+        return ResponseEntity.ok().body(userService.findByUsername(username));
+    }
+
     public ResponseEntity<User> updateUser(@ApiParam(value = "User object to update.", required = true)
                                            @Valid @RequestBody User body) {
         System.out.println("Received updateUser request");
         return ResponseEntity.ok().body(userService.edit(body));
     }
 
+    @Override
+    public ResponseEntity<String> receiveUserFeedback(UserFeedback body) {
+        return ResponseEntity.ok().body(userService.receiveUserFeedback(body));
+    }
 }

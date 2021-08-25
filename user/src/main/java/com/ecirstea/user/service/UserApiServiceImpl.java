@@ -3,6 +3,7 @@ package com.ecirstea.user.service;
 
 import com.ecirstea.user.exception.UserException;
 import com.ecirstea.user.model.User;
+import com.ecirstea.user.model.UserFeedback;
 import com.ecirstea.user.repository.UserRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -57,6 +58,8 @@ public class UserApiServiceImpl implements UserApiService {
     public User edit(User user) {
         User temp = this.findById(user.getId()); //throws exception if it doesn't exist.
         user.setCreated(temp.getCreated());
+        String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
         System.out.println("Edited user with id: " + user.getId());
         return this.userRepository.save(user);
     }
@@ -97,5 +100,11 @@ public class UserApiServiceImpl implements UserApiService {
             System.err.println("User not found with username " + username);
             throw new UserException(HttpStatus.NOT_FOUND, "user not found with username " + username);
         }
+    }
+
+    @Override
+    public String receiveUserFeedback(UserFeedback message) {
+        System.out.println(message.toString());
+        return HttpStatus.OK.getReasonPhrase();
     }
 }

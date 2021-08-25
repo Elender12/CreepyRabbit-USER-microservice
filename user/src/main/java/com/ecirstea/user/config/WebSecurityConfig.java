@@ -68,7 +68,6 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter implements WebMvcCo
                 // don't authenticate this particular request
                 .authorizeRequests()
                 .antMatchers("/",
-                        "/users",
                         "/healthcheck",
                         "/config",
                         "/swagger-ui.html",
