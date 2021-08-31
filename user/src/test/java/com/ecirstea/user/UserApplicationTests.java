@@ -75,17 +75,14 @@ class UserApplicationTests {
 	void save() throws Exception
 	{
 		//Save it only using all mandatory fields and check the optional fields have the default value:
-
 		user.setUsername("username");
 		user.setPassword("password");
 		user.setEmail("email@example.com");
 		user.setName("elena");
 
-
 		ResultActions result = mockMvc
 				.perform(MockMvcRequestBuilders
 						.post("/users")
-						//.header("authorization", adminToken)
 						.accept(MediaType.APPLICATION_JSON)
 						.contentType(MediaType.APPLICATION_JSON)
 						.content(objectMapper.writeValueAsString(user))
@@ -171,7 +168,8 @@ class UserApplicationTests {
 				.andExpect(MockMvcResultMatchers.status().isOk())
 				.andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON));
 
-		List<User> list = objectMapper.readValue(result.andReturn().getResponse().getContentAsString(), objectMapper.getTypeFactory().constructCollectionType(List.class, User.class));
+		List<User> list = objectMapper.readValue(result.andReturn().getResponse().getContentAsString(),
+				objectMapper.getTypeFactory().constructCollectionType(List.class, User.class));
 		System.out.println("GET ALL (SIZE): " + list.size());
 	}
 
