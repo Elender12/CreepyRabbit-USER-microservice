@@ -40,15 +40,7 @@ public class MongoDBConfiguration extends AbstractMongoClientConfiguration
     public MongoClient mongoClient()
     {
         ConnectionString connectionString;
-        if( Application.localInstance )
-        {
             connectionString = new ConnectionString("mongodb://localhost:" + mongoDBPort + "/" + mongoDBDatabase + "?retryWrites=false");
-        }
-        else
-        {
-            connectionString = new ConnectionString("mongodb://" + mongoDBUser + ":" + mongoDBPass + "@" + mongoDBHost + ":" + mongoDBPort + "/" + mongoDBDatabase + "?retryWrites=false");
-        }
-
         MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
             .uuidRepresentation(UuidRepresentation.STANDARD)
             .applyConnectionString(connectionString).build();
